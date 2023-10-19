@@ -11,9 +11,9 @@ import { setDoc, doc} from 'firebase/firestore';
 export default function Header() {
     const { data: session } = useSession();
     const db = getFirestore(app);
-
+    
     useEffect(() => {
-      saveUserInfo();
+        saveUserInfo();
     }, [session])
     
 
@@ -36,15 +36,15 @@ export default function Header() {
     }
 
   return (
-    <div className='flex gap-3 md:gap-2 items-center p-3 justify-between'>
+    <div className='flex gap-5 md:gap-2 items-center p-3 justify-between'>
         <Image src = '/pinterest-logo.png' alt='logo' height={50} width={50}
             className='hover:bg-gray-200 p-[0.5rem] rounded-full cursor-pointer'>
         </Image>
-        <div>
+        <div className='flex'>
             <button className='bg-gray-900 text-white p-[0.5rem] rounded-full px-4'>Home</button>
             <button className='p-[0.5rem] rounded-full px-4 font-semibold'>Create</button>
         </div>
-        <div className='bg-gray-200 hidden sm:flex rounded-full p-3 gap-3 items-center flex-grow'>
+        <div className='bg-gray-200 hidden sm:flex rounded-full p-3 gap-3 items-center flex-grow lg:mx-[5rem] xl:mx-[10rem]'>
             <HiSearch className = 'text-2xl text-gray-500 '/>
             <input type="text" name="" id="" placeholder='Search' 
             className='bg-transparent outline-none w-full'/>
