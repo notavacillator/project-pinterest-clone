@@ -46,9 +46,11 @@ export default function Header() {
             <button
                 onClick={() => {router.push('/')}} 
                 className='bg-gray-900 text-white p-[0.5rem] rounded-full px-4'>Home</button>
-            <button className='p-[0.5rem] rounded-full px-4 font-semibold'>Create</button>
+            <button 
+                onClick={() => {router.push('/pin-builder')}}
+                className='p-[0.5rem] rounded-full px-4 font-semibold'>Create</button>
         </div>
-        <div className='bg-gray-200 hidden sm:flex rounded-full p-3 gap-3 items-center flex-grow lg:mx-[5rem] xl:mx-[10rem]'>
+        <div className='bg-slate-100 [&:has(:focus-visible)]:ring-2 [&:has(:focus-visible)]:bg-slate-200 hidden sm:flex rounded-full p-3 gap-3 items-center flex-grow lg:mx-[5rem] xl:mx-[10rem]'>
             <HiSearch className = 'text-2xl text-gray-500 '/>
             <input type="text" name="" id="" placeholder='Search' 
             className='bg-transparent outline-none w-full'/>
