@@ -2,8 +2,7 @@ import React, { useState } from 'react'
 import { HiArrowUpCircle } from "react-icons/hi2";
 
 export default function UploadImage({setFile} : any) {
-   const [selectedFile,setSelectedFile]=useState();
-
+    const [selectedFile,setSelectedFile]=useState<File>();
 
   return (
     <div className='h-[450px] bg-[#e9e9e9]
@@ -34,7 +33,15 @@ export default function UploadImage({setFile} : any) {
                 null
             }
             <input id="dropzone-file" type="file"
-             className="hidden"  />
+             className="hidden" onChange={(e) => {
+                if (e.target.files && e.target.files.length > 0) {
+                    //   console.log(e.target.files[0]);
+                    setFile(e.target.files[0]); 
+                    setSelectedFile(e.target.files[0])
+                } else {
+                  console.log('No files selected');
+                }
+              }} />
         </label>
     </div>
   )

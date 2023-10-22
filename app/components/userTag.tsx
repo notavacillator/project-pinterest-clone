@@ -3,7 +3,7 @@ import React from 'react'
 import { useSession, signIn, signOut } from "next-auth/react"
 import Image from 'next/image';
 
-export default function UserTag({user}) {
+export default function UserTag({user} : any) {
     //const {data:session}=useSession();
   return (
     <div className=''>
