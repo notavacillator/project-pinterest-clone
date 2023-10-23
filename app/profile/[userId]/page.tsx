@@ -13,7 +13,7 @@ export default function Profile({ params }: { params: { userId: string } }) {
 
   useEffect(() => {
     const email = params.userId.replace('%40', '@'); 
-    console.log(`User Email id : ${email}`);
+    // console.log(`User Email id : ${email}`);
 
     if(params){
       getUserInfo(email); 

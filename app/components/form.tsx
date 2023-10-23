@@ -7,22 +7,30 @@ import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
 import { getFirestore } from "firebase/firestore";
 import app from '../shared/firebase.config';
 import { doc, setDoc } from "firebase/firestore"; 
+import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 
 export default function Form() {
     const [file, setFile]=useState<File>();
     const { data : session }  = useSession()
+
+    const router = useRouter(); 
 
     // state data for the text form 
     const [title, setTitle] = useState(""); 
     const [desc, setDesc] = useState(""); 
     const [destinationLink, setDestinationLink] = useState(""); 
 
+    // Loading state 
+    const [loading, setLoading] = useState(false) 
+
     // function runs on save 
     const onSave = () => {
         // console.log(`title : ${title}, desc : ${desc}, link : ${destinationLink}`);
         // console.log(file);
-
+        setLoading(true); 
         uploadImageFile(); 
+        router.push('/profile/'+session?.user?.email)
     }
 
     // create firebase storage root reference. 
@@ -77,7 +85,10 @@ export default function Form() {
                     })
                     .then((res) => {
                         console.log("Data saved in firestore. ");
-                        
+                        setLoading(true);
+                        // ISSUE 
+                        // two router push on save of image and other form text data. 
+                        router.push('/profile/'+session?.user?.email)
                     })
                 })
             })
@@ -94,7 +105,17 @@ export default function Form() {
                 <button className='py-2 px-3 bg-[#DD403A] rounded-md font-semibold text-slate-50'
                     onClick={() => onSave()}
                 >
-                    Save
+                    {
+                    loading ? 
+                        <Image src="/loading-indicator.png" 
+                        width={30} 
+                        height={30} 
+                        alt='loading'
+                        className='animate-spin'  />
+                        : 
+                        <span>Save</span>
+                    }
+
                 </button>
             </div>
             {/* Main form section */}

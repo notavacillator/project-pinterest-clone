@@ -37,10 +37,21 @@ export default function Header() {
         }
     }
 
+    /* create button click handler : If user is not signed in redirect to auth signin page 
+    if signed in than to pin-builder page  */
+    const onCreateClickHandler = () =>  {
+        if(session){
+            router.push('/pin-builder')
+        } else{
+            signIn(); 
+        }
+    }
+
   return (
     <div className='flex gap-5 md:gap-2 items-center p-3 justify-between'>
         <Image src = '/pinterest-logo.png' alt='logo' height={50} width={50}
             className='hover:bg-gray-200 p-[0.5rem] rounded-full cursor-pointer'
+            priority={true}
             onClick={() => {router.push('/')}}
         >
         </Image>
@@ -49,7 +60,7 @@ export default function Header() {
                 onClick={() => {router.push('/')}} 
                 className='bg-gray-900 text-white p-[0.5rem] rounded-full px-4'>Home</button>
             <button 
-                onClick={() => {router.push('/pin-builder')}}
+                onClick={() => {onCreateClickHandler()}}
                 className='p-[0.5rem] rounded-full px-4 font-semibold'>Create</button>
         </div>
         <div className='bg-slate-100 [&:has(:focus-visible)]:ring-2 [&:has(:focus-visible)]:bg-slate-200 hidden sm:flex rounded-full p-3 gap-3 items-center flex-grow lg:mx-[5rem] xl:mx-[10rem]'>

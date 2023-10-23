@@ -1,4 +1,4 @@
-import { signOut } from 'next-auth/react';
+import { signOut, useSession } from 'next-auth/react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import React from 'react'
@@ -16,11 +16,22 @@ type UserProfileProps = {
 export default function UserProfile({ userInfo }: UserProfileProps) {
     
   const router = useRouter(); 
+  const { data : session } = useSession(); 
 
   const onLogoutClickHandler = () => {
-    signOut(); 
-    router.push('/')
+    console.log('Logout button clicked');
+    signOut()
+      .then(() => {
+        console.log('Sign out successful');
+        // ISSUE / BUG 
+        // Can't push to the homepage. 
+        router.push('/');
+      })
+      .catch((error) => {
+        console.error('Sign out error:', error);
+      });
   }
+  
 
 
   return (
@@ -43,9 +54,13 @@ export default function UserProfile({ userInfo }: UserProfileProps) {
             <div className='flex gap-3'>
               <button 
                 className='bg-gray-200 rounded-full py-2 px-3 font-semibold mt-5'>Share</button>
-              <button 
-                onClick={() => {onLogoutClickHandler()}}
-                className='bg-gray-200 rounded-full py-2 px-3 font-semibold mt-5'>Logout</button>
+              {
+                session?.user?.email === userInfo.email ? 
+                  <button 
+                    onClick={() => {onLogoutClickHandler()}}
+                    className='bg-gray-200 rounded-full py-2 px-3 font-semibold mt-5'>Logout</button>
+                : null
+              }
             </div>
         </section>
     </>
