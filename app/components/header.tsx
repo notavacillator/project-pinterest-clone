@@ -40,7 +40,9 @@ export default function Header() {
   return (
     <div className='flex gap-5 md:gap-2 items-center p-3 justify-between'>
         <Image src = '/pinterest-logo.png' alt='logo' height={50} width={50}
-            className='hover:bg-gray-200 p-[0.5rem] rounded-full cursor-pointer'>
+            className='hover:bg-gray-200 p-[0.5rem] rounded-full cursor-pointer'
+            onClick={() => {router.push('/')}}
+        >
         </Image>
         <div className='flex'>
             <button

@@ -63,6 +63,9 @@ export default function Form() {
                         desc,
                         destinationLink,
                         image: url,
+                        username : session?.user?.name,
+                        email: session?.user?.email,
+                        userImage : session?.user?.image
                     }
 
                     // Add a new document in collection "cities"
