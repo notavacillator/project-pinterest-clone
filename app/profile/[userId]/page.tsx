@@ -62,8 +62,15 @@ export default function Profile({ params }: { params: { userId: string } }) {
         // Check for duplicate addition
         
         setListOfPin(() => {
-          const newData = doc.data() as PinterestPost;
-          const hasDuplicate = listOfPin.some((item : any) => item.postData.email === newData.email);
+          const newData = doc.data();
+          const hasDuplicate = listOfPin.some((item : any) =>  {
+            console.log('item : ',item.postData.email);
+            console.log('postData : ', newData.postData.email);
+            
+            item.postData.email == newData.email
+          });
+          console.log(hasDuplicate);
+          
 
           if (!hasDuplicate) {
             return [...listOfPin, newData];
@@ -82,7 +89,7 @@ export default function Profile({ params }: { params: { userId: string } }) {
     }
   };
   
-  console.log(listOfPin);
+  
   
   return (
     <>
@@ -91,6 +98,8 @@ export default function Profile({ params }: { params: { userId: string } }) {
           <>
             <UserProfile userInfo = {userInfo}/>
             <PinsList/>
+            <button onClick={() => getUserPins()}>Here</button>
+            {/* <h2>List of pin {listOfPin.map(() => {})}</h2> */}
           </>
         : null
       }
