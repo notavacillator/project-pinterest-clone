@@ -5,8 +5,7 @@ import { getFirestore,  doc, getDoc, collection, query, where, getDocs  } from '
 import app from '../../shared/firebase.config';
 import UserProfile from '@/app/components/userProfile';
 import PinsList from '@/app/components/pinsList';
-import PinterestPost from '@/app/types/pinterestPostType';
-import User from '@/app/types/userType';
+import {User, PinterestPost, PostData} from '@/app/types/dataModelTypes';
 
 export default function Profile({ params }: { params: { userId: string } }) {
   // get the firestore db instance through the exported firestore initialized app
@@ -18,7 +17,7 @@ export default function Profile({ params }: { params: { userId: string } }) {
   }); 
 
   // typescript fix with any 
-  const [listOfPin, setListOfPin] = useState<any>([])
+  const [listOfPin, setListOfPin] = useState<PinterestPost[]>([])
 
   useEffect(() => {
     const email = params.userId.replace('%40', '@'); 
@@ -42,53 +41,25 @@ export default function Profile({ params }: { params: { userId: string } }) {
     } 
   }
 
-  const getUserPins = async () : Promise<PinterestPost[]>=> {
-    const pinterestPostRef = collection(db, 'pinterest-post');
-    const queryRef = query(pinterestPostRef, where('postData.email', '==', userInfo.email));
-    const matchingDocuments : PinterestPost[] = [];
-  
-    try {
-      const querySnapshot = await getDocs(queryRef);
-  
-      querySnapshot.forEach((doc) => {
-        const data = doc.data() as PinterestPost;
-        // console.log(doc.id, '=> ', doc.data());
-        
-        matchingDocuments.push(data);
-        // typescript fix
-        // setListOfPin(()  => [...listOfPin, doc.data()])
 
-
-        // Check for duplicate addition
-        
-        setListOfPin(() => {
-          const newData = doc.data();
-          const hasDuplicate = listOfPin.some((item : any) =>  {
-            console.log('item : ',item.postData.email);
-            console.log('postData : ', newData.postData.email);
-            
-            item.postData.email == newData.email
-          });
-          console.log(hasDuplicate);
-          
-
-          if (!hasDuplicate) {
-            return [...listOfPin, newData];
-          }
-          return listOfPin;
-        });
-
-        
-
-      });
-      
-      return matchingDocuments;
-    } catch (error) {
-      console.error('Error getting documents: ', error);
-      throw error;
+  useEffect(()=>{
+    if(userInfo)
+    {
+      getUserPins();
     }
-  };
+  },[userInfo])
   
+  const getUserPins=async()=>{
+    setListOfPin([])
+      const q=query(collection(db,'pinterest-post')
+      ,where("email",'==',userInfo.email));
+      const querySnapshot = await getDocs(q);
+      querySnapshot.forEach((doc) => {
+      // doc.data() is never undefined for query doc snapshots
+    
+      setListOfPin(listOfPins => [...listOfPins, doc.data()] as PinterestPost[]);
+    });
+  }
   
   
   return (
