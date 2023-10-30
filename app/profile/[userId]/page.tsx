@@ -56,8 +56,23 @@ export default function Profile({ params }: { params: { userId: string } }) {
         
         matchingDocuments.push(data);
         // typescript fix
-        setListOfPin(()  => [...listOfPin, doc.data()])
+        // setListOfPin(()  => [...listOfPin, doc.data()])
+
+
+        // Check for duplicate addition
         
+        setListOfPin(() => {
+          const newData = doc.data() as PinterestPost;
+          const hasDuplicate = listOfPin.some((item : any) => item.postData.email === newData.email);
+
+          if (!hasDuplicate) {
+            return [...listOfPin, newData];
+          }
+          return listOfPin;
+        });
+
+        
+
       });
       
       return matchingDocuments;
@@ -76,7 +91,6 @@ export default function Profile({ params }: { params: { userId: string } }) {
           <>
             <UserProfile userInfo = {userInfo}/>
             <PinsList/>
-            <button onClick={() => getUserPins()}>Here</button>
           </>
         : null
       }
