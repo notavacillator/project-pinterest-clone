@@ -16,7 +16,6 @@ export default function Profile({ params }: { params: { userId: string } }) {
     userName: ''
   }); 
 
-  // typescript fix with any 
   const [listOfPin, setListOfPin] = useState<PinterestPost[]>([])
 
   useEffect(() => {
@@ -45,14 +44,20 @@ export default function Profile({ params }: { params: { userId: string } }) {
   useEffect(()=>{
     if(userInfo)
     {
-      getUserPins();
+      getUserPins()
+      .then((listOfPin) => {
+        console.log(listOfPin);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
     }
   },[userInfo])
   
-  const getUserPins=async()=>{
+  const getUserPins = async() => {
     setListOfPin([])
       const q=query(collection(db,'pinterest-post')
-      ,where("email",'==',userInfo.email));
+      ,where('postData.email', '==', userInfo.email));
       const querySnapshot = await getDocs(q);
       querySnapshot.forEach((doc) => {
       // doc.data() is never undefined for query doc snapshots
@@ -68,9 +73,7 @@ export default function Profile({ params }: { params: { userId: string } }) {
         userInfo ? 
           <>
             <UserProfile userInfo = {userInfo}/>
-            <PinsList/>
-            <button onClick={() => getUserPins()}>Here</button>
-            {/* <h2>List of pin {listOfPin.map(() => {})}</h2> */}
+            <PinsList listOfPins = {listOfPin}/>
           </>
         : null
       }

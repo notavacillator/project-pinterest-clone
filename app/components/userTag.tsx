@@ -13,6 +13,7 @@ export default function UserTag({user} : any) {
        <Image src={user.image} 
        alt='userImage'
        width={45}
+       priority={true}
        height={45}
        className='rounded-full'/>
        <div>
