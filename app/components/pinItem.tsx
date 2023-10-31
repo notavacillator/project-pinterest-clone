@@ -11,33 +11,37 @@ interface PinProps {
 export default function PinItem({pin} : PinProps) {
     const router=useRouter();
     const user={
-        name:pin?.postData.username,
-        image:pin?.postData.userImage
+      name:pin?.postData.username,
+      image:pin?.postData.userImage,
+      email: pin?.postData.email
     }
   return (
-    <div className=''>
+    <div className='flex flex-col flex-nowrap'>
        <div className="relative 
-       before:absolute
-       before:h-full before:w-full
-       before:rounded-3xl
-       before:z-10
-       hover:before:bg-gray-600 
-       before:opacity-50
-       cursor-pointer
-       " onClick={()=>router.push("/pin/"+pin.postData.email)}>
+        before:absolute
+        before:h-full before:w-full
+        before:rounded-3xls
+        before:z-10
+        hover:before:bg-gray-600 
+        before:opacity-50
+        cursor-pointer" 
+        onClick={()=>router.push("/pin/"+pin.postData.email)}
+       >
        
-        <Image src={pin.postData.image}
-        alt={pin.postData.title}
-        priority={true}
-        width={500}
-        height={500}
-        className='rounded-3xl 
-        cursor-pointer relative z-0'
-        />
+          <Image src={pin.postData.image}
+            alt={pin.postData.title}
+            priority={true}
+            width={500}
+            height={500}
+            className='rounded-3xl 
+            cursor-pointer relative z-0'
+          />
+          <h2 className='font-bold 
+            text-[18px] mb-1 mt-2 line-clamp-2'>
+              {pin.postData.title}
+          </h2>
+          <UserTag user={user} />
        </div>
-        <h2 className='font-bold 
-        text-[18px] mb-1 mt-2 line-clamp-2'>{pin.postData.title}</h2>
-        <UserTag user={user} />
     </div>
   )
 }

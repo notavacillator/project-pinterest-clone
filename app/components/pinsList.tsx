@@ -15,7 +15,7 @@ export default function PinsList(props: PinsListProps) {
     <div className='mt-7 px-2 md:px-5
      columns-2 md:columns-3
      lg:columns-4 mb-4
-     xl:columns-5 space-y-6 mx-auto'>
+     xl:columns-5 space-y-6 mx-[5rem]'>
         {listOfPins.map((item,index)=>(
           <PinItem key = {index} pin={item} />
         ))}
