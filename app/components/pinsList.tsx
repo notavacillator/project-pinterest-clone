@@ -12,10 +12,10 @@ export default function PinsList(props: PinsListProps) {
   
   
   return (
-    <div className='mt-7 px-2 md:px-5
-     columns-2 md:columns-3
+    <div className='mt-7 px-2 md:px-5 columns-1 
+     sm:columns-2 md:columns-3
      lg:columns-4 mb-4
-     xl:columns-5 space-y-6 mx-[5rem]'>
+     xl:columns-5 space-y-6 md:mx-[2rem] lg:mx-[3rem]'>
         {listOfPins.map((item,index)=>(
           <PinItem key = {index} pin={item} />
         ))}

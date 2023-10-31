@@ -16,15 +16,17 @@ export default function PinItem({pin} : PinProps) {
       email: pin?.postData.email
     }
   return (
-    <div className='flex flex-col flex-nowrap'>
+    <div className=''>
        <div className="relative 
         before:absolute
         before:h-full before:w-full
         before:rounded-3xls
         before:z-10
-        hover:before:bg-gray-600 
+        hover:before:bg-slate-300
+        hover:before:rounded-lg
         before:opacity-50
-        cursor-pointer" 
+        cursor-pointer break-inside-avoid-column  flex flex-col items-center
+        " 
         onClick={()=>router.push("/pin/"+pin.postData.email)}
        >
        

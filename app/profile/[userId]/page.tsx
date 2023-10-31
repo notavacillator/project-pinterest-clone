@@ -56,8 +56,7 @@ export default function Profile({ params }: { params: { userId: string } }) {
   
   const getUserPins = async() => {
     setListOfPin([])
-      const q=query(collection(db,'pinterest-post')
-      ,where('postData.email', '==', userInfo.email));
+      const q=query(collection(db,'pinterest-post'),where('postData.email', '==', userInfo.email));
       const querySnapshot = await getDocs(q);
       querySnapshot.forEach((doc) => {
       // doc.data() is never undefined for query doc snapshots
