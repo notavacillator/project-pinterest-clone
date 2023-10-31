@@ -11,21 +11,25 @@ export default function Home() {
   const [listOfPin, setListOfPin] = useState<PinterestPost[]>([])
   const db = getFirestore(app);
 
-  useEffect(()=>{
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
     getAllPins();
-  },[])
+  }, []);
   
   const getAllPins = async () => {
+    setLoading(true);
     setListOfPin([]);
-    const q = query(collection(db, 'pinterest-post'), where('postData.email', '!=', ''));
+    const q = query(collection(db, 'pinterest-post'));
     const querySnapshot = await getDocs(q);
     querySnapshot.forEach((doc) => {
-      // doc.data() is never undefined for query doc snapshots
-      // console.log(doc.data());
       setListOfPin((listOfPins) => [...listOfPins, doc.data()] as PinterestPost[]);
-      
     });
+
+    
+    setLoading(false); // Data fetching is complete
   };
+  
 
   // console.log(listOfPin);
   
