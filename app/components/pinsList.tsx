@@ -8,7 +8,7 @@ interface PinsListProps {
 
 export default function PinsList(props: PinsListProps) {
   const { listOfPins } = props;
-  console.log(listOfPins);
+  // console.log(listOfPins);
   
   
   return (
