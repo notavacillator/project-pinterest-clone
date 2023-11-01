@@ -3,7 +3,6 @@
 import { PinInfo } from '@/app/components/pinInfo'
 import React from 'react'
 import { useRouter } from 'next/navigation'
-import { HiArrowSmallLeft, HiArrowLeft} from 'react-icons/hi2';
 import {TiArrowLeftThick} from 'react-icons/ti'
 
 export default function PinDetail() {

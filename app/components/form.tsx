@@ -67,6 +67,7 @@ export default function Form() {
                     /* This prepares an object postData that contains information about the file upload, 
                     including title, desc, destinationLink, and image (the download URL). */
                     const postData = {
+                        postId,
                         title,
                         desc,
                         destinationLink,

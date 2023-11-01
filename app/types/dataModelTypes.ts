@@ -6,6 +6,7 @@ export interface User {
 
 
  export interface PostData {
+    postId: string;
     desc: string;
     destinationLink: string;
     email: string;

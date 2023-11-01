@@ -48,42 +48,44 @@ export default function Header() {
     }
 
   return (
-    <div className='flex gap-5 md:gap-2 items-center p-3 justify-between'>
-        <Image src = '/pinterest-logo.png' alt='logo' height={50} width={50}
-            className='hover:bg-gray-200 p-[0.5rem] rounded-full cursor-pointer'
-            priority={true}
-            onClick={() => {router.push('/')}}
-        >
-        </Image>
-        <div className='flex'>
-            <button
-                onClick={() => {router.push('/')}} 
-                className='bg-gray-900 text-white p-[0.5rem] rounded-full px-4'>Home</button>
-            <button 
-                onClick={() => {onCreateClickHandler()}}
-                className='p-[0.5rem] rounded-full px-4 font-semibold'>Create</button>
+    <div className='sticky top-0 z-50 opacity-100 bg-white'>
+        <div className='flex gap-5 md:gap-2 items-center p-2 justify-between'>
+            <Image src = '/pinterest-logo.png' alt='logo' height={50} width={50}
+                className='hover:bg-gray-200 p-[0.5rem] rounded-full cursor-pointer'
+                priority={true}
+                onClick={() => {router.push('/')}}
+            >
+            </Image>
+            <div className='flex'>
+                <button
+                    onClick={() => {router.push('/')}} 
+                    className='bg-gray-900 text-white p-[0.5rem] rounded-full px-4'>Home</button>
+                <button 
+                    onClick={() => {onCreateClickHandler()}}
+                    className='p-[0.5rem] rounded-full px-4 font-semibold'>Create</button>
+            </div>
+            <div className='bg-slate-100 [&:has(:focus-visible)]:ring-2 [&:has(:focus-visible)]:bg-slate-200 hidden sm:flex rounded-full p-3 gap-3 items-center flex-grow lg:mx-[5rem] xl:mx-[10rem]'>
+                <HiSearch className = 'text-2xl text-gray-500 '/>
+                <input type="text" name="" id="" placeholder='Search' 
+                className='bg-transparent outline-none w-full'/>
+            </div>
+            <HiBell className= 'text-[40px] text-gray-500 hidden md:block hover:bg-gray-200 p-[0.5rem] rounded-full cursor-pointer'/>
+            <HiChat className= 'text-[40px] text-gray-500 hidden md:block hover:bg-gray-200 p-[0.5rem] rounded-full cursor-pointer'/>
+            {
+                session?.user? 
+                <Image src= {session?.user?.image as string} 
+                    onClick={() => {
+                        router.push('/profile' + '/' + session.user?.email)
+                    }}
+                    alt='profile-picture' height={50} width={50}
+                    className='rounded-full p-[0.5rem] hover:bg-gray-200 cursor-pointer'
+                />
+                :
+                <button onClick={() => signIn()} className='p-[0.5rem] rounded-full px-4 font-semibold'>Login</button>
+            }
+            
+            
         </div>
-        <div className='bg-slate-100 [&:has(:focus-visible)]:ring-2 [&:has(:focus-visible)]:bg-slate-200 hidden sm:flex rounded-full p-3 gap-3 items-center flex-grow lg:mx-[5rem] xl:mx-[10rem]'>
-            <HiSearch className = 'text-2xl text-gray-500 '/>
-            <input type="text" name="" id="" placeholder='Search' 
-            className='bg-transparent outline-none w-full'/>
-        </div>
-        <HiBell className= 'text-[40px] text-gray-500 hidden md:block hover:bg-gray-200 p-[0.5rem] rounded-full cursor-pointer'/>
-        <HiChat className= 'text-[40px] text-gray-500 hidden md:block hover:bg-gray-200 p-[0.5rem] rounded-full cursor-pointer'/>
-        {
-            session?.user? 
-            <Image src= {session?.user?.image as string} 
-                onClick={() => {
-                    router.push('/profile' + '/' + session.user?.email)
-                }}
-                alt='profile-picture' height={50} width={50}
-                className='rounded-full p-[0.5rem] hover:bg-gray-200 cursor-pointer'
-            />
-            :
-            <button onClick={() => signIn()} className='p-[0.5rem] rounded-full px-4 font-semibold'>Login</button>
-        }
-        
-        
     </div>
   )
 }

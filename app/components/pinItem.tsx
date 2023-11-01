@@ -27,7 +27,7 @@ export default function PinItem({pin} : PinProps) {
         before:opacity-50
         cursor-pointer break-inside-avoid-column  flex flex-col items-center
         " 
-        onClick={()=>router.push("/pin/"+pin.postData.email)}
+        onClick={()=>router.push("/pin/"+pin.postData.postId)}
        >
        
           <Image src={pin.postData.image}
